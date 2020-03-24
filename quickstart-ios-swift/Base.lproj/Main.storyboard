@@ -74,6 +74,35 @@
                                     <constraint firstAttribute="height" constant="44" id="JZD-0V-LV9"/>
                                 </constraints>
                             </stackView>
+                            <stackView opaque="NO" contentMode="scaleToFill" distribution="fillProportionally" spacing="40" translatesAutoresizingMaskIntoConstraints="NO" id="zkT-19-D7n" userLabel="Recording Mode Stack View">
+                                <rect key="frame" x="76" y="643" width="262" height="44"/>
+                                <subviews>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="pFL-eO-IRm" userLabel="Photo">
+                                        <rect key="frame" x="0.0" y="0.0" width="46" height="44"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <state key="normal" title="Photo">
+                                            <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        </state>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="mIr-ia-DAb" userLabel="Video">
+                                        <rect key="frame" x="86" y="0.0" width="44" height="44"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <state key="normal" title="Video">
+                                            <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        </state>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="wtJ-rs-9IX" userLabel="LowQ Video">
+                                        <rect key="frame" x="170" y="0.0" width="92" height="44"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <state key="normal" title="LowQ Video">
+                                            <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        </state>
+                                    </button>
+                                </subviews>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="44" id="3no-sp-C6I"/>
+                                </constraints>
+                            </stackView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="OLW-sN-mKx">
                                 <rect key="frame" x="24" y="60" width="44" height="44"/>
                                 <constraints>
@@ -90,14 +119,18 @@
                             <constraint firstItem="OLW-sN-mKx" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="16" id="9Sc-PA-PSR"/>
                             <constraint firstItem="aUr-fD-BmM" firstAttribute="top" secondItem="8bC-Xf-vdC" secondAttribute="top" id="AjR-3g-hj2"/>
                             <constraint firstItem="30S-Tc-ObG" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="16" id="Ccl-Lc-XQH"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="zkT-19-D7n" secondAttribute="trailing" constant="16" id="FUN-97-89v"/>
                             <constraint firstAttribute="bottom" secondItem="aUr-fD-BmM" secondAttribute="bottom" id="NFs-b7-EBH"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="uJd-FE-xhl" secondAttribute="trailing" id="UXo-bD-Iwm"/>
+                            <constraint firstItem="zkT-19-D7n" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="16" id="WV2-iq-dyy"/>
+                            <constraint firstItem="zkT-19-D7n" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="Xq3-ze-AOT"/>
                             <constraint firstItem="OLW-sN-mKx" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="24" id="ZHp-0R-CDf"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="30S-Tc-ObG" secondAttribute="trailing" constant="16" id="gns-sc-ouV"/>
                             <constraint firstItem="30S-Tc-ObG" firstAttribute="top" secondItem="uJd-FE-xhl" secondAttribute="bottom" constant="8" id="jxb-6d-2em"/>
                             <constraint firstItem="uJd-FE-xhl" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="l01-UP-hOr"/>
                             <constraint firstItem="30S-Tc-ObG" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="nro-cx-Ham"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="30S-Tc-ObG" secondAttribute="bottom" constant="16" id="r70-XP-aDs"/>
+                            <constraint firstItem="uJd-FE-xhl" firstAttribute="top" secondItem="zkT-19-D7n" secondAttribute="bottom" constant="5" id="tFD-mC-RHN"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>
@@ -105,11 +138,14 @@
                         <outlet property="arView" destination="aUr-fD-BmM" id="kOx-av-2Hv"/>
                         <outlet property="effectsButton" destination="Wuh-Ua-YpK" id="8ED-2z-y6r"/>
                         <outlet property="filtersButton" destination="rfH-fA-IsO" id="QLO-pu-ecy"/>
+                        <outlet property="lowQVideoButton" destination="wtJ-rs-9IX" id="VNx-9i-zmq"/>
                         <outlet property="masksButton" destination="Lg4-1e-jvk" id="QGp-5I-gce"/>
                         <outlet property="nextButton" destination="bex-8d-pBb" id="ItT-Ug-kaq"/>
+                        <outlet property="photoButton" destination="pFL-eO-IRm" id="F0K-Tl-reO"/>
                         <outlet property="previousButton" destination="oM4-3a-Dc3" id="3EK-CI-k60"/>
+                        <outlet property="recordActionButton" destination="lGP-cD-zyV" id="Fgi-MP-GBu"/>
                         <outlet property="switchCameraButton" destination="OLW-sN-mKx" id="mt6-tE-rvb"/>
-                        <outlet property="takeScreenshotButton" destination="lGP-cD-zyV" id="Fgi-MP-GBu"/>
+                        <outlet property="videoButton" destination="mIr-ia-DAb" id="pAj-sD-W4f"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>

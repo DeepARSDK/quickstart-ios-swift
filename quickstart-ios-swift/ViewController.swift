@@ -8,11 +8,19 @@
 
 import UIKit
 import DeepAR
+import AVKit
+import AVFoundation
 
 enum Mode: String {
     case masks
     case effects
     case filters
+}
+
+enum RecordingMode : String {
+    case photo
+    case video
+    case lowQualityVideo
 }
 
 enum Masks: String, CaseIterable {
@@ -67,8 +75,11 @@ class ViewController: UIViewController {
     
     @IBOutlet weak var previousButton: UIButton!
     @IBOutlet weak var nextButton: UIButton!
-    @IBOutlet weak var takeScreenshotButton: UIButton!
+    @IBOutlet weak var recordActionButton: UIButton!
     
+    @IBOutlet weak var lowQVideoButton: UIButton!
+    @IBOutlet weak var videoButton: UIButton!
+    @IBOutlet weak var photoButton: UIButton!
     @IBOutlet weak var arView: ARView!
     
     // MARK: - Private properties -
@@ -95,6 +106,15 @@ class ViewController: UIViewController {
         }
     }
     
+    private var buttonRecordingModePairs: [(UIButton, RecordingMode)] = []
+    private var currentRecordingMode: RecordingMode! {
+        didSet {
+            updateRecordingModeAppearance()
+        }
+    }
+    
+    private var isRecordingInProcess: Bool = false
+    
     // MARK: - Lifecycle -
     
     override func viewDidLoad() {
@@ -104,7 +124,10 @@ class ViewController: UIViewController {
         addTargets()
         
         buttonModePairs = [(masksButton, .masks), (effectsButton, .effects), (filtersButton, .filters)]
+        buttonRecordingModePairs = [ (photoButton, RecordingMode.photo), (videoButton, RecordingMode.video), (lowQVideoButton, RecordingMode.lowQualityVideo)]
         currentMode = .masks
+        currentRecordingMode = .photo
+        
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -126,24 +149,35 @@ class ViewController: UIViewController {
     // MARK: - Private methods -
     
     private func setupArView() {
-        arView.setLicenseKey("your_license_key_goes_here")
+        arView.setLicenseKey("your_api_key_here")
         arView.delegate = self
         arView.initialize()
     }
     
     private func addTargets() {
         switchCameraButton.addTarget(self, action: #selector(didTapSwitchCameraButton), for: .touchUpInside)
-        takeScreenshotButton.addTarget(self, action: #selector(didTapTakeScreenshotButton), for: .touchUpInside)
+        recordActionButton.addTarget(self, action: #selector(didTapRecordActionButton), for: .touchUpInside)
         previousButton.addTarget(self, action: #selector(didTapPreviousButton), for: .touchUpInside)
         nextButton.addTarget(self, action: #selector(didTapNextButton), for: .touchUpInside)
         masksButton.addTarget(self, action: #selector(didTapMasksButton), for: .touchUpInside)
         effectsButton.addTarget(self, action: #selector(didTapEffectsButton), for: .touchUpInside)
         filtersButton.addTarget(self, action: #selector(didTapFiltersButton), for: .touchUpInside)
+        
+        
+        photoButton.addTarget(self, action: #selector(didTapPhotoButton), for: .touchUpInside)
+        videoButton.addTarget(self, action: #selector(didTapVideoButton), for: .touchUpInside)
+        lowQVideoButton.addTarget(self, action: #selector(didTapLowQVideoButton), for: .touchUpInside)
     }
     
     private func updateModeAppearance() {
         buttonModePairs.forEach { (button, mode) in
             button.isSelected = mode == currentMode
+        }
+    }
+    
+    private func updateRecordingModeAppearance() {
+        buttonRecordingModePairs.forEach { (button, recordingMode) in
+            button.isSelected = recordingMode == currentRecordingMode
         }
     }
     
@@ -165,8 +199,46 @@ class ViewController: UIViewController {
     }
     
     @objc
-    private func didTapTakeScreenshotButton() {
-        arView.takeScreenshot()
+    private func didTapRecordActionButton() {
+        //
+        
+        if (currentRecordingMode == RecordingMode.photo) {
+            arView.takeScreenshot()
+            return
+        }
+        
+        if (isRecordingInProcess) {
+            arView.finishRecording()
+            isRecordingInProcess = false
+            return
+        }
+        
+        if (currentRecordingMode == RecordingMode.video) {
+            arView.startRecording()
+            isRecordingInProcess = true
+            return
+        }
+        
+        if (currentRecordingMode == RecordingMode.lowQualityVideo) {
+            let videoQuality = 0.1
+            let bitrate =  1250000
+            let videoSettings:[AnyHashable : AnyObject] = [
+                AVVideoQualityKey : (videoQuality as AnyObject),
+                AVVideoAverageBitRateKey : (bitrate as AnyObject)
+            ]
+            
+            let width: Int32 = Int32(arView.renderingResolution.width)
+            let height: Int32 =  Int32(arView.renderingResolution.height)
+            
+            let frame = CGRect(x: 0, y: 0, width: arView.renderingResolution.width, height: arView.renderingResolution.height)
+            
+            // NOTE: If you need custom video compression params use method with recordAudio (either true or false whichever you need). There is a bug where  the videoSettings params are not used in the method without recordAudio parameter.
+            arView.startVideoRecording(with: frame, outputWidth: width, outputHeight: height, videoCompressionProperties: videoSettings, recordAudio: true)
+            
+            
+            isRecordingInProcess = true
+        }
+        
     }
     
     @objc
@@ -221,16 +293,44 @@ class ViewController: UIViewController {
     private func didTapFiltersButton() {
         currentMode = .filters
     }
+    
+    @objc
+    private func didTapPhotoButton() {
+        currentRecordingMode = .photo
+    }
+    
+    @objc
+    private func didTapVideoButton() {
+        currentRecordingMode = .video
+    }
+    
+    @objc
+    private func didTapLowQVideoButton() {
+        currentRecordingMode = .lowQualityVideo
+    }
 }
 
 // MARK: - ARViewDelegate -
 
 extension ViewController: ARViewDelegate {
-    func didFinishPreparingForVideoRecording() {}
+    func didFinishPreparingForVideoRecording() { }
     
-    func didStartVideoRecording() {}
+    func didStartVideoRecording() { }
     
-    func didFinishVideoRecording(_ videoFilePath: String!) {}
+    func didFinishVideoRecording(_ videoFilePath: String!) {
+
+        let documentsDirectory = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true).first!
+        let components = videoFilePath.components(separatedBy: "/")
+        guard let last = components.last else { return }
+        let destination = URL(fileURLWithPath: String(format: "%@/%@", documentsDirectory, last))
+    
+        let playerController = AVPlayerViewController()
+        let player = AVPlayer(url: destination)
+        playerController.player = player
+        present(playerController, animated: true) {
+            player.play()
+        }
+    }
     
     func recordingFailedWithError(_ error: Error!) {}
     

@@ -28,10 +28,11 @@ enum Masks: String, CaseIterable {
     case aviators
     case bigmouth
     case dalmatian
+    case bcgSeg
+    case look2
     case fatify
     case flowers
     case grumpycat
-    case kanye
     case koala
     case lion
     case mudMask
@@ -82,6 +83,10 @@ class ViewController: UIViewController {
     @IBOutlet weak var photoButton: UIButton!
     @IBOutlet weak var arView: ARView!
     
+    // This class handles camera interaction. Start/stop feed, check permissions etc. You can use it or you
+    // can provide your own implementation
+    private var cameraController: CameraController!
+    
     // MARK: - Private properties -
     
     private var maskIndex: Int = 0
@@ -120,7 +125,7 @@ class ViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        setupArView()
+        setupCameraAndArView()
         addTargets()
         
         buttonModePairs = [(masksButton, .masks), (effectsButton, .effects), (filtersButton, .filters)]
@@ -148,10 +153,16 @@ class ViewController: UIViewController {
     
     // MARK: - Private methods -
     
-    private func setupArView() {
+    private func setupCameraAndArView() {
         arView.setLicenseKey("your_api_key_here")
         arView.delegate = self
+        
+        cameraController = CameraController()
+        cameraController.arview = arView
+        
         arView.initialize()
+        
+        cameraController.startCamera()
     }
     
     private func addTargets() {
@@ -188,14 +199,27 @@ class ViewController: UIViewController {
     @objc
     private func orientationDidChange() {
         guard let orientation = UIApplication.shared.windows.first?.windowScene?.interfaceOrientation else { return }
-        // called to reinitialize the engine with the new camera and rendering resolution
-        arView.change(orientation)
+        switch orientation {
+        case .landscapeLeft:
+            cameraController.videoOrientation = .landscapeLeft
+            break
+        case .landscapeRight:
+            cameraController.videoOrientation = .landscapeRight
+            break
+        case .portrait:
+            cameraController.videoOrientation = .portrait
+            break
+        case .portraitUpsideDown:
+            cameraController.videoOrientation = .portraitUpsideDown
+        default:
+            break
+        }
+        
     }
     
     @objc
     private func didTapSwitchCameraButton() {
-        let position: AVCaptureDevice.Position = arView.getCameraPosition() == .back ? .front : .back
-        arView.switchCamera(position)
+        cameraController.position = cameraController.position == .back ? .front : .back
     }
     
     @objc
@@ -208,13 +232,16 @@ class ViewController: UIViewController {
         }
         
         if (isRecordingInProcess) {
-            arView.finishRecording()
+            arView.finishVideoRecording()
             isRecordingInProcess = false
             return
         }
         
+        let width: Int32 = Int32(arView.renderingResolution.width)
+        let height: Int32 =  Int32(arView.renderingResolution.height)
+        
         if (currentRecordingMode == RecordingMode.video) {
-            arView.startRecording()
+            arView.startVideoRecording(withOutputWidth: width, outputHeight: height)
             isRecordingInProcess = true
             return
         }
@@ -227,15 +254,9 @@ class ViewController: UIViewController {
                 AVVideoAverageBitRateKey : (bitrate as AnyObject)
             ]
             
-            let width: Int32 = Int32(arView.renderingResolution.width)
-            let height: Int32 =  Int32(arView.renderingResolution.height)
-            
             let frame = CGRect(x: 0, y: 0, width: arView.renderingResolution.width, height: arView.renderingResolution.height)
             
-            // NOTE: If you need custom video compression params use method with recordAudio (either true or false whichever you need). There is a bug where  the videoSettings params are not used in the method without recordAudio parameter.
-            arView.startVideoRecording(with: frame, outputWidth: width, outputHeight: height, videoCompressionProperties: videoSettings, recordAudio: true)
-            
-            
+            arView.startVideoRecording(withOutputWidth: width, outputHeight: height, subframe: frame, videoCompressionProperties: videoSettings, recordAudio: true)
             isRecordingInProcess = true
         }
         

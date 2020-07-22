@@ -27,7 +27,6 @@
 		198B5D8A239FDE500035E21B /* teddycigar in Resources */ = {isa = PBXBuildFile; fileRef = 198B5D6E239FDE4F0035E21B /* teddycigar */; };
 		198B5D8B239FDE500035E21B /* smallface in Resources */ = {isa = PBXBuildFile; fileRef = 198B5D6F239FDE4F0035E21B /* smallface */; };
 		198B5D8C239FDE500035E21B /* fire in Resources */ = {isa = PBXBuildFile; fileRef = 198B5D70239FDE4F0035E21B /* fire */; };
-		198B5D8D239FDE500035E21B /* kanye in Resources */ = {isa = PBXBuildFile; fileRef = 198B5D71239FDE4F0035E21B /* kanye */; };
 		198B5D8E239FDE500035E21B /* mudMask in Resources */ = {isa = PBXBuildFile; fileRef = 198B5D72239FDE4F0035E21B /* mudMask */; };
 		198B5D8F239FDE500035E21B /* aviators in Resources */ = {isa = PBXBuildFile; fileRef = 198B5D73239FDE4F0035E21B /* aviators */; };
 		198B5D90239FDE500035E21B /* obama in Resources */ = {isa = PBXBuildFile; fileRef = 198B5D74239FDE4F0035E21B /* obama */; };
@@ -40,8 +39,8 @@
 		19FB9DAC239E65ED0056E3AB /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 19FB9DAA239E65ED0056E3AB /* Main.storyboard */; };
 		19FB9DAE239E65EE0056E3AB /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 19FB9DAD239E65EE0056E3AB /* Assets.xcassets */; };
 		19FB9DB1239E65EE0056E3AB /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 19FB9DAF239E65EE0056E3AB /* LaunchScreen.storyboard */; };
-		9A34D6D52429622900FE3662 /* DeepAR.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9A34D6D1242960DD00FE3662 /* DeepAR.framework */; };
-		9A34D6D62429622900FE3662 /* DeepAR.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 9A34D6D1242960DD00FE3662 /* DeepAR.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		9AD3123024BE299500B2CDD0 /* bcgSeg in Resources */ = {isa = PBXBuildFile; fileRef = 9AD3122F24BE299500B2CDD0 /* bcgSeg */; };
+		9AD3123224BE29D700B2CDD0 /* look2 in Resources */ = {isa = PBXBuildFile; fileRef = 9AD3123124BE29D700B2CDD0 /* look2 */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -51,7 +50,6 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
-				9A34D6D62429622900FE3662 /* DeepAR.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -59,7 +57,6 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-		198B5D57239E96F40035E21B /* DeepAR.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = DeepAR.framework; sourceTree = "<group>"; };
 		198B5D5D239FDE4F0035E21B /* twistedFace */ = {isa = PBXFileReference; lastKnownFileType = file; path = twistedFace; sourceTree = "<group>"; };
 		198B5D5E239FDE4F0035E21B /* sleepingmask */ = {isa = PBXFileReference; lastKnownFileType = file; path = sleepingmask; sourceTree = "<group>"; };
 		198B5D5F239FDE4F0035E21B /* dalmatian */ = {isa = PBXFileReference; lastKnownFileType = file; path = dalmatian; sourceTree = "<group>"; };
@@ -80,7 +77,6 @@
 		198B5D6E239FDE4F0035E21B /* teddycigar */ = {isa = PBXFileReference; lastKnownFileType = file; path = teddycigar; sourceTree = "<group>"; };
 		198B5D6F239FDE4F0035E21B /* smallface */ = {isa = PBXFileReference; lastKnownFileType = file; path = smallface; sourceTree = "<group>"; };
 		198B5D70239FDE4F0035E21B /* fire */ = {isa = PBXFileReference; lastKnownFileType = file; path = fire; sourceTree = "<group>"; };
-		198B5D71239FDE4F0035E21B /* kanye */ = {isa = PBXFileReference; lastKnownFileType = file; path = kanye; sourceTree = "<group>"; };
 		198B5D72239FDE4F0035E21B /* mudMask */ = {isa = PBXFileReference; lastKnownFileType = file; path = mudMask; sourceTree = "<group>"; };
 		198B5D73239FDE4F0035E21B /* aviators */ = {isa = PBXFileReference; lastKnownFileType = file; path = aviators; sourceTree = "<group>"; };
 		198B5D74239FDE4F0035E21B /* obama */ = {isa = PBXFileReference; lastKnownFileType = file; path = obama; sourceTree = "<group>"; };
@@ -95,7 +91,8 @@
 		19FB9DAD239E65EE0056E3AB /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		19FB9DB0239E65EE0056E3AB /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		19FB9DB2239E65EE0056E3AB /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		9A34D6D1242960DD00FE3662 /* DeepAR.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = DeepAR.framework; sourceTree = "<group>"; };
+		9AD3122F24BE299500B2CDD0 /* bcgSeg */ = {isa = PBXFileReference; lastKnownFileType = file; path = bcgSeg; sourceTree = "<group>"; };
+		9AD3123124BE29D700B2CDD0 /* look2 */ = {isa = PBXFileReference; lastKnownFileType = file; path = look2; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -103,7 +100,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				9A34D6D52429622900FE3662 /* DeepAR.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -113,7 +109,6 @@
 		198B5D56239E96A70035E21B /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				198B5D57239E96F40035E21B /* DeepAR.framework */,
 			);
 			path = Frameworks;
 			sourceTree = "<group>";
@@ -121,6 +116,8 @@
 		198B5D5C239FDE4F0035E21B /* Effects */ = {
 			isa = PBXGroup;
 			children = (
+				9AD3123124BE29D700B2CDD0 /* look2 */,
+				9AD3122F24BE299500B2CDD0 /* bcgSeg */,
 				198B5D5D239FDE4F0035E21B /* twistedFace */,
 				198B5D5E239FDE4F0035E21B /* sleepingmask */,
 				198B5D5F239FDE4F0035E21B /* dalmatian */,
@@ -141,7 +138,6 @@
 				198B5D6E239FDE4F0035E21B /* teddycigar */,
 				198B5D6F239FDE4F0035E21B /* smallface */,
 				198B5D70239FDE4F0035E21B /* fire */,
-				198B5D71239FDE4F0035E21B /* kanye */,
 				198B5D72239FDE4F0035E21B /* mudMask */,
 				198B5D73239FDE4F0035E21B /* aviators */,
 				198B5D74239FDE4F0035E21B /* obama */,
@@ -156,7 +152,6 @@
 		19FB9D98239E65EC0056E3AB = {
 			isa = PBXGroup;
 			children = (
-				9A34D6D1242960DD00FE3662 /* DeepAR.framework */,
 				19FB9DA3239E65ED0056E3AB /* quickstart-ios-swift */,
 				19FB9DA2239E65EC0056E3AB /* Products */,
 				9A34D6D32429620500FE3662 /* Frameworks */,
@@ -252,6 +247,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9AD3123224BE29D700B2CDD0 /* look2 in Resources */,
 				198B5D80239FDE500035E21B /* heart in Resources */,
 				198B5D91239FDE500035E21B /* filmcolorperfection in Resources */,
 				198B5D8B239FDE500035E21B /* smallface in Resources */,
@@ -269,6 +265,7 @@
 				198B5D7A239FDE500035E21B /* sleepingmask in Resources */,
 				198B5D90239FDE500035E21B /* obama in Resources */,
 				198B5D84239FDE500035E21B /* blizzard in Resources */,
+				9AD3123024BE299500B2CDD0 /* bcgSeg in Resources */,
 				198B5D8F239FDE500035E21B /* aviators in Resources */,
 				198B5D7E239FDE500035E21B /* grumpycat in Resources */,
 				198B5D8E239FDE500035E21B /* mudMask in Resources */,
@@ -279,7 +276,6 @@
 				198B5D82239FDE500035E21B /* flowers in Resources */,
 				198B5D87239FDE500035E21B /* tripleface in Resources */,
 				198B5D8C239FDE500035E21B /* fire in Resources */,
-				198B5D8D239FDE500035E21B /* kanye in Resources */,
 				198B5D94239FDE500035E21B /* lion in Resources */,
 				198B5D7B239FDE500035E21B /* dalmatian in Resources */,
 				19FB9DAC239E65ED0056E3AB /* Main.storyboard in Resources */,
@@ -450,7 +446,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "ai.deepar.quickstart-ios-objc";
+				PRODUCT_BUNDLE_IDENTIFIER = "ai.deepar.quickstart-ios-swift";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -473,7 +469,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "ai.deepar.quickstart-ios-objc";
+				PRODUCT_BUNDLE_IDENTIFIER = "ai.deepar.quickstart-ios-swift";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";

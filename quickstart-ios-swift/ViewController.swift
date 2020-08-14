@@ -143,8 +143,6 @@ class ViewController: UIViewController {
     
     override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
         super.viewWillTransition(to: size, with: coordinator)
-        // called to stop the camera and prepare for changing the camera orientation
-        arView.changeOrientationStart()
         // sometimes UIDeviceOrientationDidChangeNotification will be delayed, so we call orientationChanged in 0.5 seconds anyway
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) { [weak self] in
             self?.orientationDidChange()
@@ -254,7 +252,7 @@ class ViewController: UIViewController {
                 AVVideoAverageBitRateKey : (bitrate as AnyObject)
             ]
             
-            let frame = CGRect(x: 0, y: 0, width: arView.renderingResolution.width, height: arView.renderingResolution.height)
+            let frame = CGRect(x: 0, y: 0, width: 1, height: 1)
             
             arView.startVideoRecording(withOutputWidth: width, outputHeight: height, subframe: frame, videoCompressionProperties: videoSettings, recordAudio: true)
             isRecordingInProcess = true

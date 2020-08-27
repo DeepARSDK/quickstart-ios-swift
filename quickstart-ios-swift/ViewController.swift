@@ -81,7 +81,10 @@ class ViewController: UIViewController {
     @IBOutlet weak var lowQVideoButton: UIButton!
     @IBOutlet weak var videoButton: UIButton!
     @IBOutlet weak var photoButton: UIButton!
-    @IBOutlet weak var arView: ARView!
+    @IBOutlet weak var arViewContainer: UIView!
+    
+    private var deepAR: DeepAR!
+    private var arView: ARView!
     
     // This class handles camera interaction. Start/stop feed, check permissions etc. You can use it or you
     // can provide your own implementation
@@ -125,15 +128,13 @@ class ViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        setupCameraAndArView()
+        setupDeepARAndCamera()
         addTargets()
         
         buttonModePairs = [(masksButton, .masks), (effectsButton, .effects), (filtersButton, .filters)]
         buttonRecordingModePairs = [ (photoButton, RecordingMode.photo), (videoButton, RecordingMode.video), (lowQVideoButton, RecordingMode.lowQualityVideo)]
         currentMode = .masks
-        currentRecordingMode = .photo
-        
-    }
+        currentRecordingMode = .photo    }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
@@ -151,14 +152,22 @@ class ViewController: UIViewController {
     
     // MARK: - Private methods -
     
-    private func setupCameraAndArView() {
-        arView.setLicenseKey("your_api_key_here")
-        arView.delegate = self
+    private func setupDeepARAndCamera() {
+        
+        self.deepAR = DeepAR()
+        self.deepAR.delegate = self
+        self.deepAR.setLicenseKey("your_license_key_here")
         
         cameraController = CameraController()
-        cameraController.arview = arView
+        cameraController.deepAR = self.deepAR
         
-        arView.initialize()
+        self.arView = self.deepAR.createARView(withFrame: self.arViewContainer.frame) as! ARView
+        self.arView.translatesAutoresizingMaskIntoConstraints = false
+        self.arViewContainer.addSubview(self.arView)
+        self.arView.leftAnchor.constraint(equalTo: self.arViewContainer.leftAnchor, constant: 0).isActive = true
+        self.arView.rightAnchor.constraint(equalTo: self.arViewContainer.rightAnchor, constant: 0).isActive = true
+        self.arView.topAnchor.constraint(equalTo: self.arViewContainer.topAnchor, constant: 0).isActive = true
+        self.arView.bottomAnchor.constraint(equalTo: self.arViewContainer.bottomAnchor, constant: 0).isActive = true
         
         cameraController.startCamera()
     }
@@ -191,7 +200,7 @@ class ViewController: UIViewController {
     }
     
     private func switchMode(_ path: String?) {
-        arView.switchEffect(withSlot: currentMode.rawValue, path: path)
+        deepAR.switchEffect(withSlot: currentMode.rawValue, path: path)
     }
     
     @objc
@@ -225,21 +234,21 @@ class ViewController: UIViewController {
         //
         
         if (currentRecordingMode == RecordingMode.photo) {
-            arView.takeScreenshot()
+            deepAR.takeScreenshot()
             return
         }
         
         if (isRecordingInProcess) {
-            arView.finishVideoRecording()
+            deepAR.finishVideoRecording()
             isRecordingInProcess = false
             return
         }
         
-        let width: Int32 = Int32(arView.renderingResolution.width)
-        let height: Int32 =  Int32(arView.renderingResolution.height)
+        let width: Int32 = Int32(deepAR.renderingResolution.width)
+        let height: Int32 =  Int32(deepAR.renderingResolution.height)
         
         if (currentRecordingMode == RecordingMode.video) {
-            arView.startVideoRecording(withOutputWidth: width, outputHeight: height)
+            deepAR.startVideoRecording(withOutputWidth: width, outputHeight: height)
             isRecordingInProcess = true
             return
         }
@@ -254,7 +263,7 @@ class ViewController: UIViewController {
             
             let frame = CGRect(x: 0, y: 0, width: 1, height: 1)
             
-            arView.startVideoRecording(withOutputWidth: width, outputHeight: height, subframe: frame, videoCompressionProperties: videoSettings, recordAudio: true)
+            deepAR.startVideoRecording(withOutputWidth: width, outputHeight: height, subframe: frame, videoCompressionProperties: videoSettings, recordAudio: true)
             isRecordingInProcess = true
         }
         
@@ -331,7 +340,7 @@ class ViewController: UIViewController {
 
 // MARK: - ARViewDelegate -
 
-extension ViewController: ARViewDelegate {
+extension ViewController: DeepARDelegate {
     func didFinishPreparingForVideoRecording() { }
     
     func didStartVideoRecording() { }

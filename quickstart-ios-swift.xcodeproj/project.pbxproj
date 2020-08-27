@@ -39,6 +39,8 @@
 		19FB9DAC239E65ED0056E3AB /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 19FB9DAA239E65ED0056E3AB /* Main.storyboard */; };
 		19FB9DAE239E65EE0056E3AB /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 19FB9DAD239E65EE0056E3AB /* Assets.xcassets */; };
 		19FB9DB1239E65EE0056E3AB /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 19FB9DAF239E65EE0056E3AB /* LaunchScreen.storyboard */; };
+		9AB9D14824EAE3DD00E659AA /* DeepAR.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9AB9D14624EAE3D700E659AA /* DeepAR.framework */; };
+		9AB9D14924EAE3DD00E659AA /* DeepAR.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 9AB9D14624EAE3D700E659AA /* DeepAR.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		9AD3123024BE299500B2CDD0 /* bcgSeg in Resources */ = {isa = PBXBuildFile; fileRef = 9AD3122F24BE299500B2CDD0 /* bcgSeg */; };
 		9AD3123224BE29D700B2CDD0 /* look2 in Resources */ = {isa = PBXBuildFile; fileRef = 9AD3123124BE29D700B2CDD0 /* look2 */; };
 /* End PBXBuildFile section */
@@ -50,6 +52,7 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
+				9AB9D14924EAE3DD00E659AA /* DeepAR.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -91,6 +94,7 @@
 		19FB9DAD239E65EE0056E3AB /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		19FB9DB0239E65EE0056E3AB /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		19FB9DB2239E65EE0056E3AB /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		9AB9D14624EAE3D700E659AA /* DeepAR.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = DeepAR.framework; sourceTree = "<group>"; };
 		9AD3122F24BE299500B2CDD0 /* bcgSeg */ = {isa = PBXFileReference; lastKnownFileType = file; path = bcgSeg; sourceTree = "<group>"; };
 		9AD3123124BE29D700B2CDD0 /* look2 */ = {isa = PBXFileReference; lastKnownFileType = file; path = look2; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -100,6 +104,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9AB9D14824EAE3DD00E659AA /* DeepAR.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -109,6 +114,7 @@
 		198B5D56239E96A70035E21B /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				9AB9D14624EAE3D700E659AA /* DeepAR.framework */,
 			);
 			path = Frameworks;
 			sourceTree = "<group>";

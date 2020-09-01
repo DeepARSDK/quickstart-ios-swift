@@ -39,6 +39,7 @@
 		19FB9DAC239E65ED0056E3AB /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 19FB9DAA239E65ED0056E3AB /* Main.storyboard */; };
 		19FB9DAE239E65EE0056E3AB /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 19FB9DAD239E65EE0056E3AB /* Assets.xcassets */; };
 		19FB9DB1239E65EE0056E3AB /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 19FB9DAF239E65EE0056E3AB /* LaunchScreen.storyboard */; };
+		9A49710124FE579800DD9C86 /* StartViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A49710024FE579800DD9C86 /* StartViewController.swift */; };
 		9AB9D14824EAE3DD00E659AA /* DeepAR.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9AB9D14624EAE3D700E659AA /* DeepAR.framework */; };
 		9AB9D14924EAE3DD00E659AA /* DeepAR.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 9AB9D14624EAE3D700E659AA /* DeepAR.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		9AD3123024BE299500B2CDD0 /* bcgSeg in Resources */ = {isa = PBXBuildFile; fileRef = 9AD3122F24BE299500B2CDD0 /* bcgSeg */; };
@@ -94,6 +95,7 @@
 		19FB9DAD239E65EE0056E3AB /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		19FB9DB0239E65EE0056E3AB /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		19FB9DB2239E65EE0056E3AB /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		9A49710024FE579800DD9C86 /* StartViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StartViewController.swift; sourceTree = "<group>"; };
 		9AB9D14624EAE3D700E659AA /* DeepAR.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = DeepAR.framework; sourceTree = "<group>"; };
 		9AD3122F24BE299500B2CDD0 /* bcgSeg */ = {isa = PBXFileReference; lastKnownFileType = file; path = bcgSeg; sourceTree = "<group>"; };
 		9AD3123124BE29D700B2CDD0 /* look2 */ = {isa = PBXFileReference; lastKnownFileType = file; path = look2; sourceTree = "<group>"; };
@@ -178,6 +180,7 @@
 				198B5D5C239FDE4F0035E21B /* Effects */,
 				198B5D56239E96A70035E21B /* Frameworks */,
 				19FB9DA4239E65ED0056E3AB /* AppDelegate.swift */,
+				9A49710024FE579800DD9C86 /* StartViewController.swift */,
 				19FB9DA8239E65ED0056E3AB /* ViewController.swift */,
 				19FB9DAA239E65ED0056E3AB /* Main.storyboard */,
 				19FB9DAD239E65EE0056E3AB /* Assets.xcassets */,
@@ -297,6 +300,7 @@
 			files = (
 				19FB9DA9239E65ED0056E3AB /* ViewController.swift in Sources */,
 				19FB9DA5239E65ED0056E3AB /* AppDelegate.swift in Sources */,
+				9A49710124FE579800DD9C86 /* StartViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

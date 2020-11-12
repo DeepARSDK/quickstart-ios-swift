@@ -23,6 +23,12 @@ enum RecordingMode : String {
     case lowQualityVideo
 }
 
+enum RecordingState : String {
+    case preparing
+    case ready
+    case recording
+}
+
 enum Masks: String, CaseIterable {
     case none
     case aviators
@@ -118,7 +124,13 @@ class ViewController: UIViewController {
         }
     }
     
-    private var isRecordingInProcess: Bool = false
+    private var currentRecordingState: RecordingState! {
+        didSet {
+            updateRecordingModeAppearance()
+        }
+    }
+    
+    //private var isRecordingInProcess: Bool = false
     
     // MARK: - Lifecycle -
     
@@ -161,6 +173,10 @@ class ViewController: UIViewController {
         arView.initialize()
         
         cameraController.startCamera()
+        
+        // Set videoRecordingWarmupEnabled after initialization
+        arView.deepAR.videoRecordingWarmupEnabled = true;
+        
     }
     
     private func addTargets() {
@@ -181,6 +197,14 @@ class ViewController: UIViewController {
     private func updateModeAppearance() {
         buttonModePairs.forEach { (button, mode) in
             button.isSelected = mode == currentMode
+        }
+    }
+    private func updateRecordingButton() {
+        if (currentRecordingState == RecordingState.preparing){
+            //disable record button while recording is preparing
+            recordActionButton.isEnabled = false;
+        } else {
+            recordActionButton.isEnabled = true;
         }
     }
     
@@ -229,21 +253,20 @@ class ViewController: UIViewController {
             return
         }
         
-        if (isRecordingInProcess) {
+        if (currentRecordingState == RecordingState.recording) {
             arView.finishVideoRecording()
-            isRecordingInProcess = false
+            //finishVideoRecording will start preparing for next recording session if videoRecordingWarmupEnabled is true
+            currentRecordingState = RecordingState.preparing
             return
         }
         
-        let width: Int32 = Int32(arView.renderingResolution.width)
-        let height: Int32 =  Int32(arView.renderingResolution.height)
-        
-        if (currentRecordingMode == RecordingMode.video) {
-            arView.startVideoRecording(withOutputWidth: width, outputHeight: height)
-            isRecordingInProcess = true
+        if (currentRecordingMode == RecordingMode.video && currentRecordingState == RecordingState.ready) {
+            arView.resumeVideoRecording();
+            currentRecordingState = RecordingState.recording;
             return
         }
-        
+        // Disabled in prepared recording mode
+        /*
         if (currentRecordingMode == RecordingMode.lowQualityVideo) {
             let videoQuality = 0.1
             let bitrate =  1250000
@@ -257,6 +280,7 @@ class ViewController: UIViewController {
             arView.startVideoRecording(withOutputWidth: width, outputHeight: height, subframe: frame, videoCompressionProperties: videoSettings, recordAudio: true)
             isRecordingInProcess = true
         }
+         */
         
     }
     
@@ -331,13 +355,11 @@ class ViewController: UIViewController {
 
 // MARK: - ARViewDelegate -
 
-extension ViewController: ARViewDelegate {
-    func didFinishPreparingForVideoRecording() { }
-    
+extension ViewController: DeepARDelegate {
+
     func didStartVideoRecording() { }
     
     func didFinishVideoRecording(_ videoFilePath: String!) {
-
         let documentsDirectory = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true).first!
         let components = videoFilePath.components(separatedBy: "/")
         guard let last = components.last else { return }
@@ -376,7 +398,21 @@ extension ViewController: ARViewDelegate {
         }
     }
     
-    func didInitialize() {}
+    func didInitialize() {
+        // Call startVideoRecording to prepare recording. Only needs to be called once when initialization is finished
+        // Must be called on main thread
+        DispatchQueue.main.async { [unowned self] in
+            let width: Int32 = Int32(arView.renderingResolution.width)
+            let height: Int32 =  Int32(arView.renderingResolution.height)
+            arView.startVideoRecording(withOutputWidth: width, outputHeight: height);
+            currentRecordingState = RecordingState.preparing;
+        }
+    }
+    
+    // Video recording is prepared, resumeVideoRecording can now be called
+    func didFinishPreparingForVideoRecording() {
+        currentRecordingState = RecordingState.ready;
+    }
     
     func faceVisiblityDidChange(_ faceVisible: Bool) {}
 }

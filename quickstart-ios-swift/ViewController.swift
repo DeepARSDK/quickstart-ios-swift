@@ -142,6 +142,11 @@ class ViewController: UIViewController {
         NotificationCenter.default.addObserver(self, selector: #selector(orientationDidChange), name: UIDevice.orientationDidChangeNotification, object: nil)
     }
     
+    override func viewWillLayoutSubviews() {
+        super.viewWillLayoutSubviews()
+        arView.frame = self.view.bounds
+    }
+    
     override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
         super.viewWillTransition(to: size, with: coordinator)
         // sometimes UIDeviceOrientationDidChangeNotification will be delayed, so we call orientationChanged in 0.5 seconds anyway
@@ -156,10 +161,11 @@ class ViewController: UIViewController {
         
         self.deepAR = DeepAR()
         self.deepAR.delegate = self
-        self.deepAR.setLicenseKey("your_license_key_here")
+        self.deepAR.setLicenseKey("your_licence_key")
         
         cameraController = CameraController()
         cameraController.deepAR = self.deepAR
+        self.deepAR.videoRecordingWarmupEnabled = true;
         
         self.arView = self.deepAR.createARView(withFrame: self.arViewContainer.frame) as! ARView
         self.arView.translatesAutoresizingMaskIntoConstraints = false
@@ -168,7 +174,7 @@ class ViewController: UIViewController {
         self.arView.rightAnchor.constraint(equalTo: self.arViewContainer.rightAnchor, constant: 0).isActive = true
         self.arView.topAnchor.constraint(equalTo: self.arViewContainer.topAnchor, constant: 0).isActive = true
         self.arView.bottomAnchor.constraint(equalTo: self.arViewContainer.bottomAnchor, constant: 0).isActive = true
-        
+    
         cameraController.startCamera()
     }
     
@@ -248,7 +254,7 @@ class ViewController: UIViewController {
         let height: Int32 =  Int32(deepAR.renderingResolution.height)
         
         if (currentRecordingMode == RecordingMode.video) {
-            deepAR.startVideoRecording(withOutputWidth: width, outputHeight: height)
+            deepAR.resumeVideoRecording()
             isRecordingInProcess = true
             return
         }
@@ -343,9 +349,13 @@ class ViewController: UIViewController {
 extension ViewController: DeepARDelegate {
     func didFinishPreparingForVideoRecording() { }
     
-    func didStartVideoRecording() { }
+    func didStartVideoRecording() {
+        NSLog("didStartVideoRecording!!!!!")
+    }
     
     func didFinishVideoRecording(_ videoFilePath: String!) {
+        
+        NSLog("didFinishVideoRecording!!!!!")
 
         let documentsDirectory = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true).first!
         let components = videoFilePath.components(separatedBy: "/")
@@ -385,7 +395,15 @@ extension ViewController: DeepARDelegate {
         }
     }
     
-    func didInitialize() {}
+    func didInitialize() {
+        let width: Int32 = Int32(deepAR.renderingResolution.width)
+        let height: Int32 =  Int32(deepAR.renderingResolution.height)
+        
+        if (currentRecordingMode == RecordingMode.video) {
+            deepAR.startVideoRecording(withOutputWidth: width, outputHeight: height)
+            return
+        }
+    }
     
     func faceVisiblityDidChange(_ faceVisible: Bool) {}
 }

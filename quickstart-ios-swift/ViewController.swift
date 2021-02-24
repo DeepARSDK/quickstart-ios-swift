@@ -161,13 +161,13 @@ class ViewController: UIViewController {
         
         self.deepAR = DeepAR()
         self.deepAR.delegate = self
-        self.deepAR.setLicenseKey("your_licence_key")
+        self.deepAR.setLicenseKey("your_licence_key_here")
         
         cameraController = CameraController()
         cameraController.deepAR = self.deepAR
-        self.deepAR.videoRecordingWarmupEnabled = true;
+        self.deepAR.videoRecordingWarmupEnabled = false;
         
-        self.arView = self.deepAR.createARView(withFrame: self.arViewContainer.frame) as! ARView
+        self.arView = (self.deepAR.createARView(withFrame: self.arViewContainer.frame) as! ARView)
         self.arView.translatesAutoresizingMaskIntoConstraints = false
         self.arViewContainer.addSubview(self.arView)
         self.arView.leftAnchor.constraint(equalTo: self.arViewContainer.leftAnchor, constant: 0).isActive = true
@@ -237,7 +237,6 @@ class ViewController: UIViewController {
     
     @objc
     private func didTapRecordActionButton() {
-        //
         
         if (currentRecordingMode == RecordingMode.photo) {
             deepAR.takeScreenshot()
@@ -254,12 +253,20 @@ class ViewController: UIViewController {
         let height: Int32 =  Int32(deepAR.renderingResolution.height)
         
         if (currentRecordingMode == RecordingMode.video) {
-            deepAR.resumeVideoRecording()
+            if(deepAR.videoRecordingWarmupEnabled) {
+                deepAR.resumeVideoRecording()
+            } else {
+                deepAR.startVideoRecording(withOutputWidth: width, outputHeight: height)
+            }
             isRecordingInProcess = true
             return
         }
         
         if (currentRecordingMode == RecordingMode.lowQualityVideo) {
+            if(deepAR.videoRecordingWarmupEnabled) {
+                NSLog("Can't change video recording settings when video recording warmap enabled")
+                return
+            }
             let videoQuality = 0.1
             let bitrate =  1250000
             let videoSettings:[AnyHashable : AnyObject] = [
@@ -347,7 +354,9 @@ class ViewController: UIViewController {
 // MARK: - ARViewDelegate -
 
 extension ViewController: DeepARDelegate {
-    func didFinishPreparingForVideoRecording() { }
+    func didFinishPreparingForVideoRecording() {
+        NSLog("didFinishPreparingForVideoRecording!!!!!")
+    }
     
     func didStartVideoRecording() {
         NSLog("didStartVideoRecording!!!!!")
@@ -396,12 +405,12 @@ extension ViewController: DeepARDelegate {
     }
     
     func didInitialize() {
-        let width: Int32 = Int32(deepAR.renderingResolution.width)
-        let height: Int32 =  Int32(deepAR.renderingResolution.height)
-        
-        if (currentRecordingMode == RecordingMode.video) {
-            deepAR.startVideoRecording(withOutputWidth: width, outputHeight: height)
-            return
+        if (deepAR.videoRecordingWarmupEnabled) {
+            DispatchQueue.main.async { [self] in
+                let width: Int32 = Int32(deepAR.renderingResolution.width)
+                let height: Int32 =  Int32(deepAR.renderingResolution.height)
+                deepAR.startVideoRecording(withOutputWidth: width, outputHeight: height)
+            }
         }
     }
     

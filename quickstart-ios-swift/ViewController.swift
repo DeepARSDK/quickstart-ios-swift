@@ -26,6 +26,7 @@ enum RecordingMode : String {
 enum Masks: String, CaseIterable {
     case none
     case aviators
+    case Helmet_PBR_V1
     case bigmouth
     case dalmatian
     case bcgSeg

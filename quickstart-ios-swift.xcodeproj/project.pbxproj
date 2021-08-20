@@ -39,6 +39,7 @@
 		19FB9DAC239E65ED0056E3AB /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 19FB9DAA239E65ED0056E3AB /* Main.storyboard */; };
 		19FB9DAE239E65EE0056E3AB /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 19FB9DAD239E65EE0056E3AB /* Assets.xcassets */; };
 		19FB9DB1239E65EE0056E3AB /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 19FB9DAF239E65EE0056E3AB /* LaunchScreen.storyboard */; };
+		8DC5173A26D00D0600481208 /* Helmet_PBR_V1 in Resources */ = {isa = PBXBuildFile; fileRef = 8DC5173926D00D0600481208 /* Helmet_PBR_V1 */; };
 		9A49710124FE579800DD9C86 /* StartViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A49710024FE579800DD9C86 /* StartViewController.swift */; };
 		9AB9D14824EAE3DD00E659AA /* DeepAR.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9AB9D14624EAE3D700E659AA /* DeepAR.framework */; };
 		9AB9D14924EAE3DD00E659AA /* DeepAR.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 9AB9D14624EAE3D700E659AA /* DeepAR.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
@@ -95,6 +96,7 @@
 		19FB9DAD239E65EE0056E3AB /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		19FB9DB0239E65EE0056E3AB /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		19FB9DB2239E65EE0056E3AB /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		8DC5173926D00D0600481208 /* Helmet_PBR_V1 */ = {isa = PBXFileReference; lastKnownFileType = file; path = Helmet_PBR_V1; sourceTree = "<group>"; };
 		9A49710024FE579800DD9C86 /* StartViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StartViewController.swift; sourceTree = "<group>"; };
 		9AB9D14624EAE3D700E659AA /* DeepAR.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = DeepAR.framework; sourceTree = "<group>"; };
 		9AD3122F24BE299500B2CDD0 /* bcgSeg */ = {isa = PBXFileReference; lastKnownFileType = file; path = bcgSeg; sourceTree = "<group>"; };
@@ -153,6 +155,7 @@
 				198B5D76239FDE4F0035E21B /* koala */,
 				198B5D77239FDE4F0035E21B /* bigmouth */,
 				198B5D78239FDE4F0035E21B /* lion */,
+				8DC5173926D00D0600481208 /* Helmet_PBR_V1 */,
 			);
 			path = Effects;
 			sourceTree = "<group>";
@@ -280,6 +283,7 @@
 				198B5D8E239FDE500035E21B /* mudMask in Resources */,
 				19FB9DAE239E65EE0056E3AB /* Assets.xcassets in Resources */,
 				198B5D7D239FDE500035E21B /* drawingmanga in Resources */,
+				8DC5173A26D00D0600481208 /* Helmet_PBR_V1 in Resources */,
 				198B5D79239FDE500035E21B /* twistedFace in Resources */,
 				198B5D85239FDE500035E21B /* realvhs in Resources */,
 				198B5D82239FDE500035E21B /* flowers in Resources */,

@@ -11,58 +11,32 @@ import DeepAR
 import AVKit
 import AVFoundation
 
-enum Mode: String {
-    case masks
-    case effects
-    case filters
-}
-
 enum RecordingMode : String {
     case photo
     case video
     case lowQualityVideo
 }
 
-enum Masks: String, CaseIterable {
-    case none
-    case aviators
-    case Helmet_PBR_V1
-    case bigmouth
-    case dalmatian
-    case bcgSeg
-    case look2
-    case fatify
-    case flowers
-    case grumpycat
-    case koala
-    case lion
-    case mudMask
-    case obama
-    case pug
-    case slash
-    case sleepingmask
-    case smallface
-    case teddycigar
-    case tripleface
-    case twistedFace
-}
 
 enum Effects: String, CaseIterable {
-    case none
-    case fire
-    case heart
-    case blizzard
-    case rain
-}
-
-enum Filters: String, CaseIterable {
-    case none
-    case tv80
-    case drawingmanga
-    case sepia
-    case bleachbypass
-    case realvhs
-    case filmcolorperfection
+    case viking_helmet = "viking_helmet.deepar"
+    case MakeupLook = "MakeupLook.deepar"
+    case Split_View_Look = "Split_View_Look.deepar"
+    case Emotions_Exaggerator = "Emotions_Exaggerator.deepar"
+    case Emotion_Meter = "Emotion_Meter.deepar"
+    case Stallone = "Stallone.deepar"
+    case flower_face = "flower_face.deepar"
+    case galaxy_background = "galaxy_background.deepar"
+    case Humanoid = "Humanoid.deepar"
+    case Neon_Devil_Horns = "Neon_Devil_Horns.deepar"
+    case Ping_Pong = "Ping_Pong.deepar"
+    case Pixel_Hearts = "Pixel_Hearts.deepar"
+    case Snail = "Snail.deepar"
+    case Hope = "Hope.deepar"
+    case Vendetta_Mask = "Vendetta_Mask.deepar"
+    case Fire_Effect = "Fire_Effect.deepar"
+    case burning_effect = "burning_effect.deepar"
+    case Elephant_Trunk = "Elephant_Trunk.deepar"
 }
 
 class ViewController: UIViewController {
@@ -92,27 +66,10 @@ class ViewController: UIViewController {
     private var cameraController: CameraController!
     
     // MARK: - Private properties -
-    
-    private var maskIndex: Int = 0
-    private var maskPaths: [String?] {
-        return Masks.allCases.map { $0.rawValue.path }
-    }
-    
+
     private var effectIndex: Int = 0
     private var effectPaths: [String?] {
         return Effects.allCases.map { $0.rawValue.path }
-    }
-    
-    private var filterIndex: Int = 0
-    private var filterPaths: [String?] {
-        return Filters.allCases.map { $0.rawValue.path }
-    }
-    
-    private var buttonModePairs: [(UIButton, Mode)] = []
-    private var currentMode: Mode! {
-        didSet {
-            updateModeAppearance()
-        }
     }
     
     private var buttonRecordingModePairs: [(UIButton, RecordingMode)] = []
@@ -131,10 +88,7 @@ class ViewController: UIViewController {
         
         setupDeepARAndCamera()
         addTargets()
-        
-        buttonModePairs = [(masksButton, .masks), (effectsButton, .effects), (filtersButton, .filters)]
         buttonRecordingModePairs = [ (photoButton, RecordingMode.photo), (videoButton, RecordingMode.video), (lowQVideoButton, RecordingMode.lowQualityVideo)]
-        currentMode = .masks
         currentRecordingMode = .photo    }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -184,30 +138,16 @@ class ViewController: UIViewController {
         recordActionButton.addTarget(self, action: #selector(didTapRecordActionButton), for: .touchUpInside)
         previousButton.addTarget(self, action: #selector(didTapPreviousButton), for: .touchUpInside)
         nextButton.addTarget(self, action: #selector(didTapNextButton), for: .touchUpInside)
-        masksButton.addTarget(self, action: #selector(didTapMasksButton), for: .touchUpInside)
-        effectsButton.addTarget(self, action: #selector(didTapEffectsButton), for: .touchUpInside)
-        filtersButton.addTarget(self, action: #selector(didTapFiltersButton), for: .touchUpInside)
-        
-        
+    
         photoButton.addTarget(self, action: #selector(didTapPhotoButton), for: .touchUpInside)
         videoButton.addTarget(self, action: #selector(didTapVideoButton), for: .touchUpInside)
         lowQVideoButton.addTarget(self, action: #selector(didTapLowQVideoButton), for: .touchUpInside)
-    }
-    
-    private func updateModeAppearance() {
-        buttonModePairs.forEach { (button, mode) in
-            button.isSelected = mode == currentMode
-        }
     }
     
     private func updateRecordingModeAppearance() {
         buttonRecordingModePairs.forEach { (button, recordingMode) in
             button.isSelected = recordingMode == currentRecordingMode
         }
-    }
-    
-    private func switchMode(_ path: String?) {
-        deepAR.switchEffect(withSlot: currentMode.rawValue, path: path)
     }
     
     @objc
@@ -286,56 +226,19 @@ class ViewController: UIViewController {
     @objc
     private func didTapPreviousButton() {
         var path: String?
-        
-        switch currentMode! {
-        case .effects:
-            effectIndex = (effectIndex - 1 < 0) ? (effectPaths.count - 1) : (effectIndex - 1)
-            path = effectPaths[effectIndex]
-        case .masks:
-            maskIndex = (maskIndex - 1 < 0) ? (maskPaths.count - 1) : (maskIndex - 1)
-            path = maskPaths[maskIndex]
-        case .filters:
-            filterIndex = (filterIndex - 1 < 0) ? (filterPaths.count - 1) : (filterIndex - 1)
-            path = filterPaths[filterIndex]
-        }
-        
-        switchMode(path)
+        effectIndex = (effectIndex - 1 < 0) ? (effectPaths.count - 1) : (effectIndex - 1)
+        path = effectPaths[effectIndex]
+        deepAR.switchEffect(withSlot: "effect", path: path)
     }
     
     @objc
     private func didTapNextButton() {
         var path: String?
-        
-        switch currentMode! {
-        case .effects:
-            effectIndex = (effectIndex + 1 > effectPaths.count - 1) ? 0 : (effectIndex + 1)
-            path = effectPaths[effectIndex]
-        case .masks:
-            maskIndex = (maskIndex + 1 > maskPaths.count - 1) ? 0 : (maskIndex + 1)
-            path = maskPaths[maskIndex]
-        case .filters:
-            filterIndex = (filterIndex + 1 > filterPaths.count - 1) ? 0 : (filterIndex + 1)
-            path = filterPaths[filterIndex]
-        }
-        
-        switchMode(path)
+        effectIndex = (effectIndex + 1 > effectPaths.count - 1) ? 0 : (effectIndex + 1)
+        path = effectPaths[effectIndex]
+        deepAR.switchEffect(withSlot: "effect", path: path)
     }
-    
-    @objc
-    private func didTapMasksButton() {
-        currentMode = .masks
-    }
-    
-    @objc
-    private func didTapEffectsButton() {
-        currentMode = .effects
-    }
-    
-    @objc
-    private func didTapFiltersButton() {
-        currentMode = .filters
-    }
-    
+
     @objc
     private func didTapPhotoButton() {
         currentRecordingMode = .photo

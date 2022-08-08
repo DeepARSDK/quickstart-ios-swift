@@ -318,6 +318,10 @@ extension ViewController: DeepARDelegate {
         }
     }
     
+    func didFinishShutdown (){
+        NSLog("didFinishShutdown!!!!!")
+    }
+    
     func faceVisiblityDidChange(_ faceVisible: Bool) {}
 }
 

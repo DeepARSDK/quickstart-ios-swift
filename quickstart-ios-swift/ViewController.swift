@@ -130,7 +130,7 @@ class ViewController: UIViewController {
         self.arView.topAnchor.constraint(equalTo: self.arViewContainer.topAnchor, constant: 0).isActive = true
         self.arView.bottomAnchor.constraint(equalTo: self.arViewContainer.bottomAnchor, constant: 0).isActive = true
     
-        cameraController.startCamera()
+        cameraController.startCamera(withAudio: true)
     }
     
     private func addTargets() {

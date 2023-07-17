@@ -59,7 +59,7 @@ class ViewController: UIViewController {
     @IBOutlet weak var arViewContainer: UIView!
     
     private var deepAR: DeepAR!
-    private var arView: ARView!
+    private var arView: UIView!
     
     // This class handles camera interaction. Start/stop feed, check permissions etc. You can use it or you
     // can provide your own implementation
@@ -116,13 +116,13 @@ class ViewController: UIViewController {
         
         self.deepAR = DeepAR()
         self.deepAR.delegate = self
-        self.deepAR.setLicenseKey("your_licence_key_here")
+        self.deepAR.setLicenseKey("your_license_key_here")
         
         cameraController = CameraController()
         cameraController.deepAR = self.deepAR
         self.deepAR.videoRecordingWarmupEnabled = false;
         
-        self.arView = (self.deepAR.createARView(withFrame: self.arViewContainer.frame) as! ARView)
+        self.arView = self.deepAR.createARView(withFrame: self.arViewContainer.frame)
         self.arView.translatesAutoresizingMaskIntoConstraints = false
         self.arViewContainer.addSubview(self.arView)
         self.arView.leftAnchor.constraint(equalTo: self.arViewContainer.leftAnchor, constant: 0).isActive = true

@@ -1,10 +1,23 @@
 # quickstart-ios-swift
 
-To run the example
+## Overview
 
-* Go to https://developer.deepar.ai, sign up, create the project and the iOS app, copy the license key and paste it to ViewController.swift (instead of your_license_key_goes_here string)
-* Download the SDK from https://developer.deepar.ai and copy the DeepAR.framework into quickstart-ios-swift/Frameworks folder
-* In the project settings select quickstart-ios-swift under Targets and:
-	* Frameworks, Libararies and Embedded content add DeepAR.framework with Embed & Sign option selected
-	* Go to Build Phases and make sure DeepAR.framework is included in Link Binary With libraries and Embeded Frameworks sections
-* Run the project
+This is an example app demonstrating DeepAR SDK.
+
+- Preview of fun face filters, effects and background replacement.
+- Carousel with filter thumbnails.
+- Take screenshot.
+- Record video.
+- Front and back camera.
+- Source code demonstrates how to integrate DeepAR for Android in your app.
+
+For more info on DeepAR for iOS see: https://docs.deepar.ai/category/deepar-sdk-for-ios
+
+## How to run
+
+1. Open the project in Xcode.
+2. Create a DeepAR developer account: https://developer.deepar.ai/signup.
+3. Create a project: https://developer.deepar.ai/projects.
+4. Add a iOS app to the project. Note that you need to specify the bundle id of your app. In this case it is "ai.deepar.quickstart-ios".
+5. Copy the generated license key in the `ViewController.swift` instead of your_license_key_here.
+

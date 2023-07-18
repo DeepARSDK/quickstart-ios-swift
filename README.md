@@ -9,7 +9,7 @@ This is an example app demonstrating DeepAR SDK.
 - Take screenshot.
 - Record video.
 - Front and back camera.
-- Source code demonstrates how to integrate DeepAR for Android in your app.
+- Source code demonstrates how to integrate DeepAR for iOS in your app.
 
 For more info on DeepAR for iOS see: https://docs.deepar.ai/category/deepar-sdk-for-ios
 

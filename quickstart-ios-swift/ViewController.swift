@@ -318,6 +318,10 @@ extension ViewController: DeepARDelegate {
         }
     }
     
+    override func viewDidDisappear(_ animated: Bool) {
+        deepAR.shutdown()
+    }
+    
     func didFinishShutdown (){
         NSLog("didFinishShutdown!!!!!")
     }

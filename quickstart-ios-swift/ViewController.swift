@@ -253,6 +253,38 @@ class ViewController: UIViewController {
     private func didTapLowQVideoButton() {
         currentRecordingMode = .lowQualityVideo
     }
+    
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        super.touchesBegan(touches, with: event)
+        let touch = touches.first
+        let point = touch?.location(in: self.arView)
+        let info = TouchInfo(x: point!.x, y: point!.y, type: TouchType.START);
+        self.deepAR.touchOccurred(info)
+    }
+    
+    override func touchesMoved(_ touches: Set<UITouch>, with event: UIEvent?) {
+        super.touchesMoved(touches, with: event)
+        let touch = touches.first
+        let point = touch?.location(in: self.arView)
+        let info = TouchInfo(x: point!.x, y: point!.y, type: TouchType.MOVE);
+        self.deepAR.touchOccurred(info)
+    }
+    
+    override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
+        super.touchesEnded(touches, with: event)
+        let touch = touches.first
+        let point = touch?.location(in: self.arView)
+        let info = TouchInfo(x: point!.x, y: point!.y, type: TouchType.END);
+        self.deepAR.touchOccurred(info)
+    }
+    
+    override func touchesCancelled(_ touches: Set<UITouch>, with event: UIEvent?) {
+        super.touchesCancelled(touches, with: event)
+        let touch = touches.first
+        let point = touch?.location(in: self.arView)
+        let info = TouchInfo(x: point!.x, y: point!.y, type: TouchType.END);
+        self.deepAR.touchOccurred(info)
+    }
 }
 
 // MARK: - ARViewDelegate -

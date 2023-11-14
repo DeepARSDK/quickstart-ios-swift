@@ -5,8 +5,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/DeepARSDK/swift-deepar",
       "state" : {
-        "revision" : "6001506c6a0b2695bc7ec0c3d0cb5c4cfeab9d03",
-        "version" : "5.4.3"
+        "revision" : "70c6f4812c303d0c12fc40653ada4f090fc94c22",
+        "version" : "5.4.4"
       }
     }
   ],

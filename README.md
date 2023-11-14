@@ -11,7 +11,7 @@ This is an example app demonstrating DeepAR SDK.
 - Front and back camera.
 - Source code demonstrates how to integrate DeepAR for iOS in your app.
 
-For more info on DeepAR for iOS see: https://docs.deepar.ai/category/deepar-sdk-for-ios
+For more info on DeepAR for iOS see: https://docs.deepar.ai/deepar-sdk/platforms/ios/overview
 
 ## How to run
 

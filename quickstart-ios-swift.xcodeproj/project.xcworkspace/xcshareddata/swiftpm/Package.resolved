@@ -1,14 +1,15 @@
 {
+  "originHash" : "3a1bb971eb741d28e266be8fdb33fd09db169ffad2a2762d50569932d2cf44d7",
   "pins" : [
     {
       "identity" : "swift-deepar",
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/DeepARSDK/swift-deepar",
       "state" : {
-        "revision" : "70c6f4812c303d0c12fc40653ada4f090fc94c22",
-        "version" : "5.4.4"
+        "revision" : "579b5bac6a25aa537cee3832c72f74c805cc46da",
+        "version" : "5.6.15"
       }
     }
   ],
-  "version" : 2
+  "version" : 3
 }
